@@ -1,0 +1,11 @@
+Aspie Bootcamp Finance Manager:
+
+Used to track finances, with a time of input tracked. 
+Runs on Python, no external libraries required.
+
+How to use: 
+Once open, input 1 or 2 and press enter to select the appropriate first financial transaction.
+Enter the name, then the amount, then the time will be recorded automatically, and you will be returned to the starting menu. 
+Repeat until all transactions are recorded. 
+Use 3 to view all of your transactions with timestamps
+Use 4 to see total income, expenses, and the net balance.
