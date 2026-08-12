@@ -1,7 +1,7 @@
 Aspie Bootcamp Finance Manager:
 
 Used to track finances, with a time of input tracked. 
-Runs on Python, no external libraries required.
+Runs on Python 3.12, no external libraries required.
 
 How to use: 
 Once open, input 1 or 2 and press enter to select the appropriate first financial transaction.
