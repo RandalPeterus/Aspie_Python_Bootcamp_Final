@@ -1,4 +1,4 @@
-"""""
+"""
 Aspie Bootcamp 
 Python Final Project
 Personal Finance Manager
@@ -6,39 +6,80 @@ Ryan Sfiligoi
 
 Objective:
 Create a Python application that acts as a personal finance manager. The program will help users to track their income, expenses, and provide basic financial summaries.
-"""""
+"""
+
 import datetime
+
 expenses = []
 income = []
-"""""
+"""
 Adding in a function that requests the name, time, and amount for the income or expenses
-"""""
+"""
+
 def add_expense_income(entry_type):
     if entry_type == "expense":
-        name = input("Enter a name for this expense: ").strip()
-        time = datetime.datetime.now()
-        amount = input("Enter the expense amount: ").strip()
-        expenses.append(f"At {time.strftime("%Y-%m-%d %H:%M")}, {name}, Expense: {amount}")
-    elif entry_type == "income":
-        name = input("Enter a name for this income: ").strip()
-        time = datetime.datetime.now()
-        amount = input("Enter the income amount: ").strip()
-        income.append(f"At {time.strftime("%Y-%m-%d %H:%M")}, {name}, Income: {amount}")
+        while True:
+            name = input("Enter a name for this expense: ").strip()
+            if name:
+                break
+            print("Please enter a valid name.")
 
-"""""
+        while True:
+            try:
+                amount = float(input("Enter the expense amount: ").strip())
+                if amount > 0:
+                    break
+                print("Please enter a valid amount greater than 0.")
+            except ValueError:
+                print("Please enter a valid number.")
+
+        time = datetime.datetime.now()
+        expenses.append({
+            "Time": time.strftime("%Y-%m-%d %H:%M"),
+            "Name": name,
+            "Expense": amount,
+        })
+
+    elif entry_type == "income":
+        while True:
+            name = input("Enter a name for this income: ").strip()
+            if name:
+                break
+            print("Please enter a valid name.")
+
+        while True:
+            try:
+                amount = float(input("Enter the income amount: ").strip())
+                if amount > 0:
+                    break
+                print("Please enter a valid amount greater than 0.")
+            except ValueError:
+                print("Please enter a valid number.")
+
+        time = datetime.datetime.now()
+        income.append({
+            "Time": time.strftime("%Y-%m-%d %H:%M"),
+            "Name": name,
+            "Income": amount,
+        })
+
+"""
 Prints everything, nothing complex for this
-"""""
+"""
 def print_transactions():
     all_transactions = expenses + income
-    print(all_transactions)
-"""""
+    for transaction in all_transactions:
+        print(transaction)
+
+"""
 Create a total expenses variable and extract the number 
 
 
 Self note: Look into how .split works later, need to figure out why -1 worked.
 
 It just gives the last number on the list, so it will pull the number because the number is the last number in each entry.
-"""""
+"""
+
 def calculations():
     total_expenses = 0.0
     for item in expenses:
@@ -53,11 +94,11 @@ def calculations():
     net_balance = total_income - total_expenses
 
     print("Total expenses:")
-    print(f"${total_expenses}")
+    print(f"${total_expenses:.2f}")
     print("Total income:")
-    print(f"${total_income}")
+    print(f"${total_income:.2f}")
     print("Net balance:")
-    print(f"${net_balance}")
+    print(f"${net_balance:.2f}")
 
 def main():
     print("Good Morning.")
@@ -71,7 +112,7 @@ def main():
         print("4: View summary statistics")
         print("q: Quit application")
 
-        choice = input()
+        choice = input("Choose an option: ").strip().lower()
 
         if choice == "1":
             add_expense_income("expense")
@@ -87,4 +128,5 @@ def main():
             print("Sorry, that's not a valid option. Please try again.")
 
 
-main()
+
+    main()
