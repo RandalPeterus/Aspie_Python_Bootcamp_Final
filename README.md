@@ -51,6 +51,7 @@ Repeat this process for each transaction you want to log.
 
 The following features are planned but not yet implemented:
 
+- **Make Transaction Summaries Prettier** — rework transaction summaries in order to make them more visually appealing.
 - **Delete entries** — remove a specific income or expense entry from the record
 - **Modify entries** — edit the name, amount, or category of an existing entry
 - **Categories** — assign a category to each transaction (e.g. groceries, rent, salary) and view transactions filtered by category
