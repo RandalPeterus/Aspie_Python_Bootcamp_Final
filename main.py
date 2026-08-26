@@ -71,6 +71,39 @@ def print_transactions():
     for transaction in all_transactions:
         print(transaction)
 
+""" 
+Deletes transactions        
+"""
+def delete_transaction():
+
+    while True:
+        print("\nWhat type of transaction would you like to delete?")
+        print("1: Expense")
+        print("2: Income")
+        print("q: Cancel")
+
+        choice = input("Choose an option: ").strip().lower()
+
+        if choice == "1":
+            if not expenses:
+                print("No expenses to delete.")
+                return
+            print("\nExpenses:")
+            for i, expense in enumerate(expenses):
+                print(f"{i + 1}: {expense}")
+            index = input("Enter the number of the expense to delete (or 'q' to cancel): ").strip().lower()
+            if index == "q":
+                return
+            try:
+                index = int(index) - 1
+                if 0 <= index < len(expenses):
+                    deleted_expense = expenses.pop(index)
+                    print(f"Deleted expense: {deleted_expense}")
+                else:
+                    print("Invalid index. Please try again.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
 """
 Create a total expenses variable and extract the number 
 
@@ -110,6 +143,8 @@ def main():
         print("2: Add an income")
         print("3: View finance report")
         print("4: View summary statistics")
+        print("5: Modify a transaction")
+        print("6: Delete a transaction")
         print("q: Quit application")
 
         choice = input("Choose an option: ").strip().lower()
@@ -122,6 +157,10 @@ def main():
             print_transactions()
         elif choice == "4":
             calculations()
+        elif choice == "5":
+            modify_transaction()
+        elif choice == "6":
+            delete_transaction()
         elif choice == "q":
             print("Good Evening.")
         else:
