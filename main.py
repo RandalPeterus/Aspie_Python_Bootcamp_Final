@@ -67,9 +67,34 @@ def add_expense_income(entry_type):
 Prints everything, nothing complex for this
 """
 def print_transactions():
+    """
     all_transactions = expenses + income
     for transaction in all_transactions:
         print(transaction)
+    """
+    if not expenses and not income:
+        print("There are no transactions to display.")
+        return
+
+    all_transactions = expenses + income
+
+    for transaction in all_transactions:
+
+        time = transaction["Time"]
+        name = transaction["Name"]
+
+        if "Expense" in transaction:
+            amount = transaction["Expense"]
+            transaction_type = "expense"
+
+        else:
+            amount = transaction["Income"]
+            transaction_type = "income"
+
+        print(
+            f"At {time}, the {transaction_type}, "
+            f"{name}, was made for ${amount:.2f}."
+        )
 
 """ 
 Deletes transactions        
@@ -104,6 +129,96 @@ def delete_transaction():
             except ValueError:
                 print("Invalid input. Please enter a number.")
 
+        elif choice == "2":
+            if not income:
+                print("No income to delete.")
+                return
+            print("\nIncome:")
+            for i, inc in enumerate(income):
+                print(f"{i + 1}: {inc}")
+            index = input("Enter the number of the income to delete (or 'q' to cancel): ").strip().lower()
+            if index == "q":
+                return
+            try:
+                index = int(index) - 1
+                if 0 <= index < len(income):
+                    deleted_income = income.pop(index)
+                    print(f"Deleted income: {deleted_income}")
+                else:
+                    print("Invalid index. Please try again.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+        elif choice == "q":
+                return
+
+        else:
+                print("Invalid choice. Please try again.")
+
+"""
+Modifies transactions
+"""
+
+def modify_transaction():
+    while True:
+        print("\nWhat type of transaction would you like to modify?")
+        print("1: Expense")
+        print("2: Income")
+        print("q: Cancel")
+
+        choice = input("Choose an option: ").strip().lower()
+
+        if choice == "1":
+            if not expenses:
+                print("No expenses to modify.")
+                return
+            print("\nExpenses:")
+            for i, expense in enumerate(expenses):
+                print(f"{i + 1}: {expense}")
+            index = input("Enter the number of the expense to modify (or 'q' to cancel): ").strip().lower()
+            if index == "q":
+                return
+            try:
+                index = int(index) - 1
+                if 0 <= index < len(expenses):
+                    new_name = input("Enter the new name for this expense: ").strip()
+                    new_amount = float(input("Enter the new amount for this expense: ").strip())
+                    expenses[index]["Name"] = new_name
+                    expenses[index]["Expense"] = new_amount
+                    print(f"Modified expense: {expenses[index]}")
+                else:
+                    print("Invalid index. Please try again.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+        elif choice == "2":
+            if not income:
+                print("No income to modify.")
+                return
+            print("\nIncome:")
+            for i, inc in enumerate(income):
+                print(f"{i + 1}: {inc}")
+            index = input("Enter the number of the income to modify (or 'q' to cancel): ").strip().lower()
+            if index == "q":
+                return
+            try:
+                index = int(index) - 1
+                if 0 <= index < len(income):
+                    new_name = input("Enter the new name for this income: ").strip()
+                    new_amount = float(input("Enter the new amount for this income: ").strip())
+                    income[index]["Name"] = new_name
+                    income[index]["Income"] = new_amount
+                    print(f"Modified income: {income[index]}")
+                else:
+                    print("Invalid index. Please try again.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+        elif choice == "q":
+            return
+
+        else:
+            print("Invalid choice. Please try again.")
 """
 Create a total expenses variable and extract the number 
 
@@ -167,5 +282,5 @@ def main():
             print("Sorry, that's not a valid option. Please try again.")
 
 
-
+if __name__ == "__main__":
     main()
