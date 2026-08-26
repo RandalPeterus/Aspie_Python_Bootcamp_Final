@@ -23,6 +23,8 @@ When the program starts, you'll see a menu with the following options:
 | `2` | Add an income |
 | `3` | View finance report (all transactions) |
 | `4` | View summary statistics |
+| `5` | Modify a transaction |
+| `6` | Delete a transaction |
 | `q` | Quit the application |
 
 **Adding a transaction (1 or 2):**
@@ -37,7 +39,11 @@ Repeat this process for each transaction you want to log.
 - Option `3` prints every recorded transaction, including its name, amount, and timestamp.
 - Option `4` calculates and displays your total expenses, total income, and net balance.
 
-## Features (Current — v0.2)
+**Refining your data**
+- Option `5` allows the user to change their entries.
+- Option `6` allows the user to delete unwanted entries.
+
+## Features (Current — v0.3)
 
 - Tracks income and expenses with an automatically recorded timestamp for each entry
 - Input validation:
@@ -46,20 +52,20 @@ Repeat this process for each transaction you want to log.
 - Transactions are stored as structured records (name, amount, and time), rather than plain text, making the data easier to process and extend
 - View all transactions in a simple report
 - View a summary of total income, total expenses, and net balance, formatted to two decimal places
+- Modifies entries
+- deletes entries
 
 ## Roadmap — Planned for a Future Update
 
 The following features are planned but not yet implemented:
 
-- **Make Transaction Summaries Prettier** — rework transaction summaries in order to make them more visually appealing.
-- **Delete entries** — remove a specific income or expense entry from the record
-- **Modify entries** — edit the name, amount, or category of an existing entry
 - **Categories** — assign a category to each transaction (e.g. groceries, rent, salary) and view transactions filtered by category
 
 ## Version History
 
 - **v0.1** — Initial release. Basic add/view/summary functionality using plain-text transaction strings.
 - **v0.2** — Added input validation, switched to structured (dictionary-based) transaction records, and improved summary formatting.
+- **v0.3** — Made Transaction summaries prettier, added the ability to delete entries and modify entries.
 
 ## Author
 
