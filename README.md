@@ -59,13 +59,14 @@ Repeat this process for each transaction you want to log.
 
 The following features are planned but not yet implemented:
 
-- **Categories** — assign a category to each transaction (e.g. groceries, rent, salary) and view transactions filtered by category
+- **Add Category Totals** — Add an option to view the
 
 ## Version History
 
 - **v0.1** — Initial release. Basic add/view/summary functionality using plain-text transaction strings.
 - **v0.2** — Added input validation, switched to structured (dictionary-based) transaction records, and improved summary formatting.
 - **v0.3** — Made Transaction summaries prettier, added the ability to delete entries and modify entries.
+- **v0.4** — Added Categories in order to identify the aspects that the cash flow moves, or track the amount spent on certain accounts.
 
 ## Author
 
