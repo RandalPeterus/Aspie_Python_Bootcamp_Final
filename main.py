@@ -12,6 +12,7 @@ import datetime
 
 expenses = []
 income = []
+categories = []
 """
 Adding in a function that requests the name, time, and amount for the income or expenses
 """
@@ -229,16 +230,8 @@ It just gives the last number on the list, so it will pull the number because th
 """
 
 def calculations():
-    total_expenses = 0.0
-    for item in expenses:
-        amount = item.split()[-1]
-        total_expenses += float(amount)
-
-    total_income = 0.0
-    for item in income:
-        amount = item.split()[-1]
-        total_income += float(amount)
-
+    total_expenses = sum(expense["Expense"] for expense in expenses)
+    total_income = sum(inc["Income"] for inc in income)
     net_balance = total_income - total_expenses
 
     print("Total expenses:")
@@ -247,6 +240,92 @@ def calculations():
     print(f"${total_income:.2f}")
     print("Net balance:")
     print(f"${net_balance:.2f}")
+
+
+"""
+Allows the user to create a category for their transactions. 
+This function will prompt the user for a category name and store it in a list of categories.
+"""
+
+def create_category():
+
+    while True:
+        category_name = input("Enter a name for the new category (or 'q' to cancel): ").strip()
+        if category_name.lower() == 'q':
+            break
+        if category_name:
+            categories.append(category_name)
+            print(f"Category '{category_name}' created.")
+        else:
+            print("Please enter a valid category name.")
+
+def assign_category():
+    if not expenses and not income:
+        print("There are no transactions to assign categories to.")
+        return
+
+    if not categories:
+        print("No categories available. Please create a category first.")
+        return
+
+    all_transactions = expenses + income
+    for i, transaction in enumerate(all_transactions):
+        print(f"{i + 1}: {transaction}")
+
+    index = input("Enter the number of the transaction to assign a category (or 'q' to cancel): ").strip().lower()
+    if index == "q":
+        return
+
+    try:
+        index = int(index) - 1
+        if not 0 <= index < len(all_transactions):
+            print("Invalid transaction index. Please try again.")
+            return
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        return
+
+    print("Available categories:")
+    for j, category in enumerate(categories):
+        print(f"{j + 1}: {category}")
+
+    category_index = input("Enter the number of the category to assign: ").strip().lower()
+    try:
+        category_index = int(category_index) - 1
+        if not 0 <= category_index < len(categories):
+            print("Invalid category index. Please try again.")
+            return
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        return
+
+    all_transactions[index]["Category"] = categories[category_index]
+    print(f"Assigned category '{categories[category_index]}' to transaction: {all_transactions[index]}")
+
+"""
+
+Calculates the total expenses and income for each category and displays the results.
+
+"""
+
+def category_summary():
+    if not categories:
+        print("No categories available.")
+        return
+
+    category_totals = {category: 0.0 for category in categories}
+
+    for transaction in expenses + income:
+        if "Category" in transaction:
+            category = transaction["Category"]
+            if "Expense" in transaction:
+                category_totals[category] -= transaction["Expense"]
+            elif "Income" in transaction:
+                category_totals[category] += transaction["Income"]
+
+    print("Category Summary:")
+    for category, total in category_totals.items():
+        print(f"{category}: ${total:.2f}")
 
 def main():
     print("Good Morning.")
@@ -260,6 +339,9 @@ def main():
         print("4: View summary statistics")
         print("5: Modify a transaction")
         print("6: Delete a transaction")
+        print("7: Create a category")
+        print("8: Assign a category to a transaction")
+        print("9: View category summary")
         print("q: Quit application")
 
         choice = input("Choose an option: ").strip().lower()
@@ -276,6 +358,12 @@ def main():
             modify_transaction()
         elif choice == "6":
             delete_transaction()
+        elif choice == "7":
+            create_category()
+        elif choice == "8":
+            assign_category()
+        elif choice == "9":
+            category_summary()
         elif choice == "q":
             print("Good Evening.")
         else:
